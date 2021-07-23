@@ -15,9 +15,9 @@ export const createMiddleware = (
     getMockValues: () => ResolvedMockType[]
 ): NextHandleFunction => {
     return async (req, res, next) => {
-        if (prefix && !req.url?.startsWith(prefix)) return next();
-
         const { url = "", method = "get", headers } = req;
+        if (prefix && !url.startsWith(prefix)) return next();
+
         const { pathname, searchParams } = new URL(url, BASE);
 
         const matchMock = getMockValues().find(
@@ -33,7 +33,7 @@ export const createMiddleware = (
             (pre, [key, value]) => Object.assign(pre, { [key]: value }),
             {} as Recordable
         );
-        const params = getParams();
+        const params = getParams(url);
         console.log("params", params);
 
         try {

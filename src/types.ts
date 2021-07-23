@@ -71,7 +71,7 @@ export interface ResolvedMockType extends MockType {
     type: "RAW" | "JSON";
     method: "GET" | "POST" | "DELETE";
     reg: RegExp;
-    getParams: () => Recordable;
+    getParams: (url: string) => Recordable;
 }
 
 export interface NodeModuleWithCompile extends NodeModule {

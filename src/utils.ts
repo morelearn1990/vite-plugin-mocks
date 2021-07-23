@@ -1,3 +1,4 @@
+import { pathToRegexp, regexpToFunction, Key } from "path-to-regexp";
 import { resolve } from "path";
 import { ResolvedOptions, UserOptions } from "./types";
 
@@ -24,4 +25,16 @@ export function sleep(time: number) {
     return new Promise((resolve) => {
         setTimeout(() => resolve(""), time);
     });
+}
+
+export function pathToReg<T extends object>(pathname: string) {
+    var keys: Key[] = [];
+    var reg = pathToRegexp(pathname, keys);
+    return {
+        reg,
+        getParams: (url: string): T => {
+            const matchRes = regexpToFunction<T>(reg, keys, { decode: decodeURIComponent })(url);
+            return matchRes == false ? ({} as T) : matchRes.params;
+        }
+    };
 }

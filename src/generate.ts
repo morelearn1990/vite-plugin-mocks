@@ -1,9 +1,8 @@
-import { pathToRegexp, regexpToFunction, Key } from "path-to-regexp";
-import { build } from "esbuild";
 import path from "path";
-import { NodeModuleWithCompile, MockType, ResolvedMockType, Recordable, ResolvedOptions, MockData } from "./types";
-import { isArray } from "./utils";
 import Module from "module";
+import { build } from "esbuild";
+import { NodeModuleWithCompile, MockType, ResolvedMockType, Recordable, ResolvedOptions, MockData } from "./types";
+import { isArray, pathToReg } from "./utils";
 
 export const createMockFactory = (options: ResolvedOptions) => {
     const mockData: MockData = new Map();
@@ -51,18 +50,6 @@ const generateMockFromFile = async (file: string) => {
     });
     return resolvedMocks;
 };
-
-function pathToReg<T extends object>(pathname: string) {
-    var keys: Key[] = [];
-    var reg = pathToRegexp(pathname, keys);
-    return {
-        reg,
-        getParams: (): T => {
-            const matchRes = regexpToFunction<T>(reg, keys, { decode: decodeURIComponent })(pathname);
-            return matchRes == false ? ({} as T) : matchRes.params;
-        }
-    };
-}
 
 async function resolveModule(filePath: string): Promise<any> {
     cleanCache(filePath);
