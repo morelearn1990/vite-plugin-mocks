@@ -3,3 +3,5 @@ node_modules
 dist
 .husky
 src copy
+.vscode
+__snapshots__

@@ -1,7 +1,7 @@
 {
     "name": "vite-plugin-mocks",
     "description": "File system for Vite",
-    "version": "1.1.1",
+    "version": "1.0.0",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "index.d.ts",
@@ -19,8 +19,8 @@
         "index.d.ts"
     ],
     "scripts": {
-        "dev": "pnpm run build -- --watch --ignore-watch examples",
-        "build": "tsup src/index.ts --dts --format cjs,esm",
+        "dev": "pnpm run build -- --watch",
+        "build": "tsup",
         "prepublishOnly": "pnpm run build",
         "release": "pnpx git-ensure -a && pnpx bumpp --commit --tag --push",
         "example:dev": "pnpm -C examples/files run dev",
@@ -35,32 +35,42 @@
         "preinstall": "npx only-allow pnpm"
     },
     "dependencies": {
+        "connect": "^3.7.0",
+        "esbuild": "^0.12.15",
+        "fast-glob": "^3.2.7",
+        "micromatch": "^4.0.4",
+        "path-to-regexp": "^6.2.0"
     },
     "peerDependencies": {
+        "mockjs": "^1.1.0",
         "vite": "^2.0.0"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^0.6.4",
-        "@commitlint/cli": "^12.1.1",
-        "@commitlint/config-conventional": "^12.1.1",
-        "@types/jest": "^26.0.22",
-        "@types/node": "^14.14.41",
-        "@typescript-eslint/eslint-plugin": "^4.22.0",
+        "@antfu/eslint-config": "^0.6.6",
+        "@commitlint/cli": "^12.1.4",
+        "@commitlint/config-conventional": "^12.1.4",
+        "@types/connect": "^3.4.35",
+        "@types/jest": "^26.0.24",
+        "@types/micromatch": "^4.0.2",
+        "@types/mockjs": "^1.0.4",
+        "@types/node": "^14.17.5",
+        "@typescript-eslint/eslint-plugin": "^4.28.4",
         "conventional-changelog": "^3.1.24",
         "cz-conventional-changelog": "^3.3.0",
-        "eslint": "^7.25.0",
+        "eslint": "^7.31.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^3.4.0",
         "husky": "^6.0.0",
         "jest": "^26.6.3",
         "jest-esbuild": "^0.1.6",
         "lint-staged": "^10.5.4",
-        "prettier": "^2.2.1",
-        "rollup": "^2.47.0",
+        "mockjs": "^1.1.0",
+        "prettier": "^2.3.2",
+        "rollup": "^2.53.3",
         "ts-node": "^9.1.1",
-        "tsup": "^4.9.2",
-        "typescript": "^4.2.4",
-        "vite": "^2.2.2"
+        "tsup": "^4.12.5",
+        "typescript": "^4.3.5",
+        "vite": "^2.4.3"
     },
     "lint-staged": {
         "*.{ts}": "eslint --fix --ext",
